@@ -13,7 +13,7 @@ class SummaryState:
 
 @dataclass(kw_only=True)
 class SummaryStateInput(TypedDict):
-    research_topic: str = field(default=None) # Report topic     
+    research_topic: str = field(default="resume la oferta que atmira ha presentado a Reale Vida") # Report topic     
 
 @dataclass(kw_only=True)
 class SummaryStateOutput(TypedDict):
