@@ -74,12 +74,12 @@ def pinecone_research(state: SummaryState):
 
     # Extract only page_content
     page_contents = [res.page_content for res in results]
-    #metadata_ids = [res.metadata.get("Id") for res in results if res.metadata and "Id" in res.metadata]
+    metadata_ids = [res.metadata.get("PDFPath") for res in results if res.metadata and "PDFPath" in res.metadata]
     # Extract and trim metadata IDs
-    metadata_ids = [
-        res.metadata.get("Id").split("#")[0]
-        for res in results if res.metadata and "Id" in res.metadata
-    ]
+    #metadata_ids = [
+    #    res.metadata.get("Id").split("#")[0]
+    #    for res in results if res.metadata and "Id" in res.metadata
+    #]
 
     # Return structure
     return {
