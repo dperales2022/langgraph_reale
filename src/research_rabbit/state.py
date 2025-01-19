@@ -8,6 +8,7 @@ class SummaryState:
     search_query: str = field(default=None) # Search query
     web_research_results: Annotated[list, operator.add] = field(default_factory=list) 
     sources_gathered: Annotated[list, operator.add] = field(default_factory=list) 
+    file_name: Annotated[list, operator.add] = field(default_factory=list)
     research_loop_count: int = field(default=0) # Research loop count
     running_summary: str = field(default=None) # Final report
 
