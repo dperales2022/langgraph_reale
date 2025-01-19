@@ -89,31 +89,6 @@ def pinecone_research(state: SummaryState):
         "web_research_results": [page_contents]
     }
 
-def pinecone_research_flowise(state: SummaryState):
-    """Gather information from Pinecone vector database"""
-
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-
-    pc = Pinecone(api_key=PINECONE_API_KEY)
-    index = pc.Index("flowisereale")
-    vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace="proposal")
-
-    retriever = vector_store.as_retriever(
-        search_type="similarity_score_threshold",
-        search_kwargs={"k": 5, "score_threshold": 0.8},
-    )
-    results = retriever.invoke(state.search_query, filter={"NIF": "Z00000300"})
-
-    # Extract only page_content
-    page_contents = [res.page_content for res in results]
-
-    # Return structure
-    return {
-        "sources_gathered": ["Pinecone_flowise"],
-        "research_loop_count": state.research_loop_count + 1,
-        "web_research_results": [page_contents]
-    }
-
 def web_research(state: SummaryState):
     """ Gather information from the web """
     
@@ -172,7 +147,8 @@ def finalize_summary(state: SummaryState):
     """ Finalize the summary """
     
     # Remove duplicate sources by converting to a set and back to a list
-    unique_sources = list(set(state.sources_gathered))
+    #unique_sources = list(set(state.sources_gathered))
+    unique_sources = list(set(state.file_name))
     
     # Format all accumulated sources into a single bulleted list
     all_sources = "\n".join(source for source in unique_sources)
